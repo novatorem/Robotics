@@ -1,6 +1,4 @@
-# Copyright Continuum Robotics Laboratory, UTM, Canada, 2019
-#
-# Before running this script make sure you have loaded the scene "AssignmentII.ttt" in V-REP!
+# Before running this script make sure you have loaded the scene "positionIdentification.ttt" in V-REP!
 #
 # The script depends on:
 #
@@ -47,11 +45,11 @@ def convert(s, angle):
     allPositions.append(pos)
 
     # combine both into matrix
-    twistyBoopeedoo = np.matrix([[rot.item(0), rot.item(1), rot.item(2), pos.item(0)],
-                                 [rot.item(3), rot.item(4), rot.item(5), pos.item(1)],
-                                 [rot.item(6), rot.item(7), rot.item(8), pos.item(2)],
-                                 [0,           0,           0,           1]])
-    return(twistyBoopeedoo)
+    finalMatrix = np.matrix([[rot.item(0), rot.item(1), rot.item(2), pos.item(0)],
+                            [rot.item(3), rot.item(4), rot.item(5), pos.item(1)],
+                            [rot.item(6), rot.item(7), rot.item(8), pos.item(2)],
+                            [0,           0,           0,           1]])
+    return(finalMatrix)
 
 # This function takes a list containing actuation angles and returns a matrix containing the end-effector pose
 def forwardKinematicsPEF(angles):
@@ -113,7 +111,7 @@ def forwardKinematicsPEF(angles):
     pose = prod * M
     return(pose)
 
-def dEnAviTHarTeNbErg(lst):
+def denavitHartenberg(lst):
     linkTwist  = lst[0] #alpha
     linkLength = lst[1] #a
     linkOffset = lst[2] #d
@@ -141,9 +139,9 @@ def forwardKinematicsDH(angles):
     allValues.append([-60*math.pi/180,  0,           0,                 angles[5]])
     allValues.append([180*math.pi/180,  0,           202.78/1000.0,     90*math.pi/180])
 
-    pose = dEnAviTHarTeNbErg(allValues[0])
+    pose = denavitHartenberg(allValues[0])
     for i in range(6):
-        pose *= dEnAviTHarTeNbErg(allValues[i + 1])
+        pose *= denavitHartenberg(allValues[i + 1])
 
     return pose
 
