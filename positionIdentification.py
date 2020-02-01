@@ -1,5 +1,7 @@
 # Before running this script make sure you have loaded the scene "positionIdentification.ttt" in V-REP!
 #
+# This program was written for python2.7
+#
 # The script depends on:
 #
 # b0RemoteApi (Python script), which depends on:
@@ -11,15 +13,15 @@
 # boost_thread (shared library)
 # libzmq (shared library)
 
-import b0RemoteApi
 import math
 import numpy as np
+import b0RemoteApi
 np.seterr(divide='ignore', invalid='ignore')
 
+allProd = []
+allSValues = []
 allRotations = []
 allPositions = []
-allSValues = []
-allProd = []
 
 def convert(s, angle):
     # define helper matrices
@@ -46,9 +48,9 @@ def convert(s, angle):
 
     # combine both into matrix
     finalMatrix = np.matrix([[rot.item(0), rot.item(1), rot.item(2), pos.item(0)],
-                            [rot.item(3), rot.item(4), rot.item(5), pos.item(1)],
-                            [rot.item(6), rot.item(7), rot.item(8), pos.item(2)],
-                            [0,           0,           0,           1]])
+                             [rot.item(3), rot.item(4), rot.item(5), pos.item(1)],
+                             [rot.item(6), rot.item(7), rot.item(8), pos.item(2)],
+                             [0,           0,           0,           1]])
     return(finalMatrix)
 
 # This function takes a list containing actuation angles and returns a matrix containing the end-effector pose
@@ -305,8 +307,8 @@ with b0RemoteApi.RemoteApiClient('b0RemoteApi_pythonClient','b0RemoteApi') as cl
     #Get end-effector handle
     error,eeHandle=client.simxGetObjectHandle('MicoHand_Dummy2',client.simxServiceCall())
     
+    #Choose your angles here!
     #Define desired joint angles in rad
-
     # 1
 
     angle1 = 0*math.pi/180
@@ -465,7 +467,6 @@ with b0RemoteApi.RemoteApiClient('b0RemoteApi_pythonClient','b0RemoteApi') as cl
     
     drawHandles = drawManEllipsoid(u_1,u_2,u_3,sigma_1,sigma_2,sigma_3,eePose)
     
-    
     #Wait for user input
     raw_input('Press Enter to continue...')
     
@@ -483,4 +484,3 @@ with b0RemoteApi.RemoteApiClient('b0RemoteApi_pythonClient','b0RemoteApi') as cl
     client.simxSetJointPosition(joint4Handle,0,client.simxDefaultPublisher())
     client.simxSetJointPosition(joint5Handle,0,client.simxDefaultPublisher())
     client.simxSetJointPosition(joint6Handle,0,client.simxDefaultPublisher())
-    
