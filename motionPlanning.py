@@ -1,3 +1,6 @@
+# This was developed using python2.7+
+# Please read the ReadMe.md for set up environment
+
 import time
 import math
 import random
@@ -285,12 +288,12 @@ with b0RemoteApi.RemoteApiClient('b0RemoteApi_pythonClient','b0RemoteApi') as cl
     
     #Create callback functions for certain events
     def simulationStepStarted(msg):
-        simTime=msg[1][b'simulationTime']
-        print('Simulation step started. Simulation time: ',simTime)
+        simTime = msg[1][b'simulationTime']
+        print('Simulation step started. Simulation time: ', simTime)
         
     def simulationStepDone(msg):
-        simTime=msg[1][b'simulationTime']
-        print('Simulation step done. Simulation time: ',simTime)
+        simTime = msg[1][b'simulationTime']
+        print('Simulation step done. Simulation time: ', simTime)
         global doNextStep
         doNextStep=True
         
