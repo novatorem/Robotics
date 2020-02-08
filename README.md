@@ -3,6 +3,9 @@ Usage of this code required the robotics simulation program V-REP, or otherwise 
 
 **Note**: VREP is now discontinued, replaced by [CoppeliaSim](https://www.coppeliarobotics.com/downloads) which was not tested.
 
+The third party libraries used are difficult to set up on Mac OS, and even more so on Windows. **Linux** is recommended for getting the system up and running.
+If using V-REP, ensure you use the scene object as `*.ttt`.
+
 The program has various calculations in place, such as calculating the end effector using Denavit Hartenberg or Product of Exponentials.
 Further, `positionIdentification` is able to calculate the Manipulability Ellipsoid based on the current position.
 Using the calculated provided, we avoid Gimbal Lock when possible.
